@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="am.gsoft.carservice">
+
+  <uses-permission
+    android:name="android.permission.BIND_ACCESSIBILITY_SERVICE"
+    tools:ignore="ProtectedPermissions" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+  <uses-permission android:name="android.permission.CALL_PHONE" />
+  <!-- <uses-permission android:name="android.permission.RECEIVE_SMS" /> -->
+  <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> -->
+  <!-- <uses-permission android:name="android.permission.READ_CONTACTS"/> -->
+  <!-- <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> -->
+  <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+  <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+  <supports-screens
+    android:smallScreens="true"
+    android:normalScreens="true"
+    android:largeScreens="true"
+    android:anyDensity="true"
+    />
+
+  <application
+    android:allowBackup="false"
+    android:fullBackupContent="false"
+    android:icon="@drawable/icon_2"
+    android:key="@string/app_name"
+    android:largeHeap="true"
+    android:name=".app.App"
+    android:roundIcon="@drawable/icon_2"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme"
+    tools:replace="android:allowBackup"
+    tools:ignore="GoogleAppIndexingWarning,ManifestResource">
+
+    <!-- <service -->
+    <!-- android:exported="true" -->
+    <!-- android:name=".service.NotificationIntentService" /> -->
+    <!-- <service -->
+    <!-- android:name=".alarms.background.OnBootUpNotificationSchedulerIntentService" -->
+    <!-- android:enabled="true" -->
+    <!-- android:exported="false"> -->
+    <!-- </service> -->
+
+    <meta-data
+      android:name="preloaded_fonts"
+      android:resource="@array/preloaded_fonts" />
+
+    <activity
+      android:configChanges="locale|layoutDirection|keyboardHidden|orientation|screenSize"
+      android:name=".ui.activity.SplashActivity"
+      android:screenOrientation="portrait"
+      android:theme="@style/SplashTheme">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity
+      android:configChanges="locale|layoutDirection|keyboardHidden|orientation|screenSize"
+      android:name=".ui.activity.main.MainActivity"
+      android:screenOrientation="portrait"
+      android:launchMode="singleTop"
+      android:theme="@style/MainTheme" />
+    <activity
+      android:configChanges="layoutDirection|locale|keyboardHidden|orientation|screenSize"
+      android:launchMode="singleTask"
+      android:name=".ui.activity.LandingActivity"
+      android:screenOrientation="portrait" />
+    <activity
+      android:configChanges="layoutDirection|locale"
+      android:name=".ui.activity.setting.SettingsActivity"
+      android:label="@string/action_settings"
+      android:parentActivityName=".ui.activity.main.MainActivity">
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value=".ui.activity.main.MainActivity" />
+    </activity>
+
+    <service
+      android:exported="false"
+      android:name=".notification.NotificationsIntentService" />
+
+    <service
+      android:enabled="true"
+      android:exported="true"
+      android:name=".notification.OnBootUpNotificationSchedulerIntentService" />
+
+    <receiver android:name=".notification.NotificationsReceiver" />
+    <receiver
+      android:enabled="true"
+      android:exported="true"
+      android:name=".notification.OnBootUpReceiver">
+      <!-- android:process=":remote" -->
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <action android:name="android.intent.action.REBOOT" />
+        <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+        <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+        <action android:name="android.intent.action.ACTION_EXTERNAL_APPLICATIONS_AVAILABLE" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+
+  </application>
+
+</manifest>
